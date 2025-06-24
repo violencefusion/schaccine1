@@ -2047,5 +2047,55 @@
                                                               `;
                                                               document.head.appendChild(style);
                                                           </script>
-                                                      </body>
+                                                      
+<script>
+// ==========================
+// FILMES MANUAIS (SEM FIREBASE)
+// ==========================
+function adicionarFilmesManuais() {
+    const filmesManuais = [
+        {
+            title: "AFTER",
+            category: "Terror",
+            url: "https://www.youtube.com/watch?v=8cllqmrT_vI",
+            thumb: "https://i.ytimg.com/vi/8cllqmrT_vI/hq720.jpg",
+            synopsis: "Em um mundo pós-apocalíptico devastado, onde a realidade e o sobrenatural se entrelaçam, a jovem Alex tenta desvendar os mistérios de um evento cataclísmico que arruinou a humanidade. Sozinha e com apenas alguns sobreviventes, ela se vê presa em uma cidade desolada, onde forças sinistras e entidades demoníacas caçam os poucos que restam.."
+        },
+        {
+            title: "O Auto da Compadecida 2",
+            category: "Geral",
+            url: "https://drive.google.com/file/d/1R5nsQopeBRSZXowBlFX-gvWbgsEF6XAo/view",
+            thumb: "https://i.ytimg.com/vi/UYo9eHVtCjE/maxresdefault.jpg",
+            synopsis: "Depois de anos desaparecido, João Grilo retorna à Taperoá para se juntar ao velho companheiro Chicó. Após sua história de ressurreição ter se espalhado, ele é disputado como cabo eleitoral pelos dois políticos mais poderosos da cidade.
+"
+        }
+    ];
+
+    const armazenados = localStorage.getItem("schaccine_films");
+    const jaTem = armazenados ? JSON.parse(armazenados) : [];
+
+    // Evita duplicar ao recarregar
+    filmesManuais.forEach(f => {
+        const existe = jaTem.some(f2 => f2.title === f.title && f2.url === f.url);
+        if (!existe) {
+            jaTem.unshift({
+                id: Date.now().toString() + Math.random(),
+                title: f.title,
+                category: f.category,
+                url: f.url,
+                thumb: f.thumb,
+                synopsis: f.synopsis,
+                timestamp: Date.now(),
+                rating: 0,
+                ratings: []
+            });
+        }
+    });
+
+    localStorage.setItem("schaccine_films", JSON.stringify(jaTem));
+}
+adicionarFilmesManuais();
+</script>
+
+</body>
                                                       </html>
